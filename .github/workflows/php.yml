@@ -26,6 +26,17 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
+    - run: |
+        touch .env
+        echo DB_CONNECTION = ${{ secrets.DB_CONNECTION }} >> .env
+        echo DB_HOST = ${{ secrets.DB_HOST}} >> .env
+        echo DB_PORT = ${{ secrets.DB_PORT }} >> .env
+        echo DB_DATABASE = ${{ secrets.DB_DATABASE }} >> .env
+        echo DB_USERNAME = ${{ secrets.DB_USERNAME }} >> .env
+        echo DB_PASSWORD = ${{ secrets.DB_PASSWORD }} >> .env
+        echo AUTH0_DOMAIN = ${{ secrets.AUTH0_DOMAIN }} >> .env
+        echo AUTH0_AUD = ${{ secrets.AUTH0_AUD }} >> .env
+        cat .env
     - run: rsync -a /root/actions-runner/backend/backend/saber-feedback-portal-backend/saber-feedback-portal-backend/ /var/www/backend/
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
