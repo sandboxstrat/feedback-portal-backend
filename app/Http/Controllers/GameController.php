@@ -12,7 +12,6 @@ class GameController extends Controller
     
     public function getAllGames()
     {
-        Log::info("test");
         $query = DB::select(
             'SELECT 
                 games.*,
