@@ -24,6 +24,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('feedback',['uses' => 'FeedbackController@create']);
 
     $router->post('image', ['uses' => 'FeedbackController@uploadImage']);
+
+    $router->get('option/game/{gameId}', ['uses' => 'OptionController@getOptionsByGameId']);
   
 });
 
@@ -54,6 +56,14 @@ $router->group(['prefix' => 'admin','middleware' => 'auth'], function () use ($r
     $router->get('feedback/game/{gameId}', ['uses' => 'FeedbackController@getFeedbackByGame']);
 
     $router->put('feedback/{id}', ['uses' => 'FeedbackController@update']);
+
+    $router->post('option', ['uses' => 'OptionController@create']);
+
+    $router->get('option/game/{gameId}', ['uses' => 'OptionController@getOptionsByGameId']);
+
+    $router->put('option/{id}', ['uses' => 'OptionController@update']);
+
+    $router->delete('option/{id}', ['uses' => 'OptionController@delete']);
 
   });
 

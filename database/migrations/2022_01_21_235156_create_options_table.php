@@ -14,10 +14,11 @@ class CreateOptionsTable extends Migration
     public function up()
     {
         Schema::create('options', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('game_id');
-            $table->integer('parent');
-            $table->integer('tier');
+            $table->uuid('parent')->nullable();
+            $table->string('children')->nullable();
+            $table->integer('tier')->default(0);
             $table->string('icon');
             $table->string('text');
             $table->timestamps();
