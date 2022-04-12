@@ -75,7 +75,7 @@ class GameController extends Controller
                 $name = str_replace(" ","-",$name);
 
                 //move to public folder
-                $file->move($_SERVER["DOCUMENT_ROOT"].'\..\..\saber-feedback-portal-frontend\public\images\uploads',$name.".".$extention);
+                $file->move($_SERVER["DOCUMENT_ROOT"].env('PUBLIC_FOLDER'),$name.".".$extention);
                 $response = ['name'=>$name.".".$extention];
                 return response()->json($response,200);
             }else{

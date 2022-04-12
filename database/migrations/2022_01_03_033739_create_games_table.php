@@ -27,6 +27,7 @@ class CreateGamesTable extends Migration
             $table->string('options_background_image')->nullable();
             $table->string('logo')->nullable();
             $table->text('description')->nullable();
+            $table->text('confirmation')->nullable();
             $table->boolean('feedback_page')->default(0);
             $table->boolean('active')->default(1);
             $table->string('created_by');

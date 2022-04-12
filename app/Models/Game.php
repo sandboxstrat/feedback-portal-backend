@@ -15,7 +15,7 @@ class Game extends Model
      */
     
     protected $fillable = [
-        'name', 'url', 'website', 'publisher', 'publisher_website', 'developer','developer_website','description','background_image','logo', 'options_background_image','game_page_active','active','created_by','last_edited_by','feedback_page'
+        'name', 'url', 'website', 'publisher', 'publisher_website', 'developer','developer_website','description','confirmation','background_image','logo', 'options_background_image','game_page_active','active','created_by','last_edited_by','feedback_page'
     ];
 
     /**
