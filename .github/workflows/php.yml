@@ -37,7 +37,7 @@ jobs:
         echo AUTH0_DOMAIN = ${{ secrets.AUTH0_DOMAIN }} >> .env
         echo AUTH0_AUD = ${{ secrets.AUTH0_AUD }} >> .env
         cat .env
-    - run: php artisan migrate
+    - run: php artisan migrate --force
     - run: rsync -a /root/actions-runner/backend/backend/saber-feedback-portal-backend/saber-feedback-portal-backend/ /var/www/backend/
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
