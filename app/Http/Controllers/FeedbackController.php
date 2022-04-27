@@ -55,7 +55,6 @@ class FeedbackController extends Controller
 
     public function create(Request $request)
     {
-        Log::info(json_encode($request->ip()));
         $this->validate($request,[
             'user_id'=>'required',
             'user_name'=>'required',

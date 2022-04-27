@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddConfirmationToGamesTable extends Migration
+class CreateProsState extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddConfirmationToGamesTable extends Migration
      */
     public function up()
     {
-        Schema::table('games', function (Blueprint $table) {
-            $table->text('confirmation')->nullable();
+        Schema::create('pros_state', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('game_id');
+            $table->string('option')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddConfirmationToGamesTable extends Migration
      */
     public function down()
     {
-        Schema::table('games', function (Blueprint $table) {
-            $table->dropColumn('confirmation');
-        });
+        Schema::drop('pros_state');
     }
 }

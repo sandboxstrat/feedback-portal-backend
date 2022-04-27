@@ -17,6 +17,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+/*Routes required for Game Page*/
 $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->get('games/{url}', ['uses' => 'GameController@getOneGameByUrlAndPublic']);
@@ -26,9 +27,22 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('image', ['uses' => 'FeedbackController@uploadImage']);
 
     $router->get('option/game/{gameId}', ['uses' => 'OptionController@getOptionsByGameId']);
+
+    $router->post('pros/user/cookie',['uses'=>'SaberProsApiController@getUserByCookie']);
+
+    $router->get('pros/user/{authorizationCode}', ['uses' => 'SaberProsApiController@getUser']);
+
+    $router->get('pros/user/login/{id}',['uses'=>'SaberProsApiController@getLoginState']);
+
+    $router->delete('pros/user/login/{id}',['uses'=>'SaberProsApiController@deleteLoginState']);
+
+    $router->post('pros/user/login',['uses'=>'SaberProsApiController@createLoginState']);
+
+    $router->post('pros/user/logout',['uses'=>'SaberProsApiController@logOut']);
   
 });
 
+/*Admin section routes*/
 $router->group(['prefix' => 'admin','middleware' => 'auth'], function () use ($router) {
 
     $router->get('games/url/{url}/{id}', ['uses'=>'GameController@checkGameUrl']);
@@ -64,6 +78,14 @@ $router->group(['prefix' => 'admin','middleware' => 'auth'], function () use ($r
     $router->put('option/{id}', ['uses' => 'OptionController@update']);
 
     $router->delete('option/{id}', ['uses' => 'OptionController@delete']);
+
+    $router->get('users', ['uses' => 'Auth0ManagementApiController@getAllUsers']);
+
+    $router->get('users/{id}', ['uses' => 'Auth0ManagementApiController@getUser']);
+
+    $router->post('users', ['uses' => 'Auth0ManagementApiController@createUser']);
+
+    $router->put('users', ['uses' => 'Auth0ManagementApiController@updateUser']);
 
   });
 

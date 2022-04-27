@@ -6,11 +6,12 @@
     "type": "project",
     "require": {
         "php": "^7.3|^8.0",
-        "auth0/auth0-php": "~7.0",
+        "auth0/auth0-php": "7.9.2",
         "fruitcake/laravel-cors": "^2.0",
         "kriswallsmith/buzz": "^1.2",
         "laravel/lumen-framework": "^8.3.1",
-        "nyholm/psr7": "^1.4"
+        "nyholm/psr7": "^1.4",
+        "paragonie/sodium_compat": "^1.17"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
