@@ -38,6 +38,11 @@ jobs:
         echo AUTH0_AUD = ${{ secrets.AUTH0_AUD }} >> .env
         echo PUBLIC_FOLDER = ${{ secrets.PUBLIC_FOLDER }} >> .env
         echo CORS_ALLOWED_ORIGINS = ${{ secrets.CORS_ALLOWED_ORIGINS }} >> .env
+        echo SABER_PROS_CLIENT_ID = ${{ secrets.SABER_PROS_CLIENT_ID }} >> .env
+        echo SABER_PROS_CLIENT_SECRET = ${{ secrets.SABER_PROS_CLIENT_SECRET }} >> .env
+        echo SABER_PROS_TOKEN_ENDPOINT = ${{ secrets.SABER_PROS_TOKEN_ENDPOINT }} >> .env
+        echo SABER_PROS_REDIRECT_URI = ${{ secrets.SABER_PROS_REDIRECT_URI }} >> .env
+        echo SABER_PROS_USERINFO_ENDPOINT = ${{ secrets.SABER_PROS_USERINFO_ENDPOINT }} >> .env
         cat .env
     - run: php artisan migrate --force
     - run: rsync -a /root/actions-runner/backend/backend/saber-feedback-portal-backend/saber-feedback-portal-backend/ /var/www/backend/
