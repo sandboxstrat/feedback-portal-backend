@@ -45,7 +45,7 @@ jobs:
         echo SABER_PROS_USERINFO_ENDPOINT = ${{ secrets.SABER_PROS_USERINFO_ENDPOINT_PRODUCTION }} >> .env
         cat .env
     - run: php artisan migrate --force
-    - run: rsync -a /root/actions-runner/backend/backend/saber-feedback-portal-backend/saber-feedback-portal-backend/ /var/www/backend/
+    - run: rsync -a /root/actions-runner/backend/saber-feedback-portal-backend/saber-feedback-portal-backend/saber-feedback-portal-backend/ /var/www/backend/
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
