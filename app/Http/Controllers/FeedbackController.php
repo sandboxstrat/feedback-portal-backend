@@ -33,10 +33,11 @@ class FeedbackController extends Controller
     public function getFeedbackCountByDate(){
         $query = DB::select(
             'SELECT 
-                DATE_FORMAT(DATE(created_at), "%M %d, %Y") as date,
+                DATE_FORMAT(DATE(created_at), "%m/%d/%Y") as date,
                 COUNT(id) as count
             FROM feedback
-            GROUP BY date;'
+            GROUP BY date
+            ORDER BY date ASC;'
         );
         return response()->json($query);
     }
