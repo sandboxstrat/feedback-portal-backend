@@ -12,23 +12,6 @@ class GameController extends Controller
     
     public function getAllGames()
     {
-        Log::info(env('AUTH0_AUD'));
-        Log::info(env('AUTH0_DOMAIN'));
-        Log::info(env('CACHE_DRIVER'));
-        Log::info(env('CORS_ALLOWED_ORIGINS'));
-        Log::info(env('DB_CONNECTION'));
-        Log::info(env('DB_DATABASE'));
-        Log::info(env('DB_HOST'));
-        Log::info(env('DB_PASSWORD'));
-        Log::info(env('DB_PORT'));
-        Log::info(env('DB_USERNAME'));
-        Log::info(env('PUBLIC_FOLDER'));
-        Log::info(env('QUEUE_CONNECTION'));
-        Log::info(env('SABER_PROS_CLIENT_ID'));
-        Log::info(env('SABER_PROS_CLIENT_SECRET'));
-        Log::info(env('SABER_PROS_REDIRECT_URI'));
-        Log::info(env('SABER_PROS_TOKEN_ENDPOINT'));
-        Log::info(env('SABER_PROS_USERINFO_ENDPOINT'));
         $query = DB::select(
             'SELECT 
                 games.*,
