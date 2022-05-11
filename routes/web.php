@@ -26,7 +26,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->post('image', ['uses' => 'FeedbackController@uploadImage']);
 
-    $router->get('option/game/{gameId}', ['uses' => 'OptionController@getOptionsByGameId']);
+    $router->get('option/game/{gameId}', ['uses' => 'OptionController@getOptionsByGameIdPublic']);
 
     $router->post('pros/user/cookie',['uses'=>'SaberProsApiController@getUserByCookie']);
 

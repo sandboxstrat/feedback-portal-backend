@@ -15,7 +15,7 @@ class Option extends Model
      */
     
     protected $fillable = [
-        'text', 'game_id', 'parent', 'tier', 'icon'
+        'text', 'game_id', 'parent', 'tier', 'icon','children','uri'
     ];
 
     /**

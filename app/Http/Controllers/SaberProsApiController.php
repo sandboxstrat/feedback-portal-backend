@@ -27,7 +27,6 @@ class SaberProsApiController extends Controller
 
             $codeType=($type==='authorization_code')?'code':'refresh_token';
             $postfield = "grant_type=$type&$codeType=$code&client_id=$clientId&client_secret=$clientSecret&redirect_uri=$redirectUri";
-            
             $curl = curl_init();
 
             curl_setopt_array($curl, [
@@ -43,7 +42,6 @@ class SaberProsApiController extends Controller
                     "content-type: application/x-www-form-urlencoded"
                 ],
             ]);
-
             $response = curl_exec($curl);
             $decodedResponse = json_decode($response,true);
             $error = !empty($decodedResponse['error'])?$decodedResponse:null;
