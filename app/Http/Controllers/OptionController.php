@@ -73,10 +73,10 @@ class OptionController extends Controller
         ]);
         
         $uri = preg_replace("/[^A-Z-a-z0-9 ]/", '', $request['text']);
-        $uri = str_replace(" ","-",$uri);
+        $uri = strtolower(str_replace(" ","-",$uri));
         $request->replace(['uri'=>$uri]);
 
-        $optionCheck = $options = DB::select('select * from options where game_id LIKE ? AND text LIKE ?', [$request['game_id'],$request['text']]);
+        $optionCheck = $options = DB::select('select * from options where game_id LIKE ? AND uri LIKE ?', [$request['game_id'],$request['uri']]);
         if(empty($optionCheck)){
 
             $option = Option::create($request->all());
@@ -84,7 +84,7 @@ class OptionController extends Controller
         }else{
             $error=[
                 'error'=>"400 Bad Request",
-                'error_message'=>"There's another option for this game with the same name. Please change and try again."
+                'error_message'=>"There's another option for this game with a similar name. Please change and try again."
             ];
 
             return response()->json($error, 400);
@@ -96,15 +96,15 @@ class OptionController extends Controller
 
     public function update($id, Request $request){
 
+        //add uri
+        $uri = preg_replace("/[^A-Z-a-z0-9 ]/", '', $request['text']);
+        $uri = strtolower(str_replace(" ","-",$uri));
+        $request->replace(['uri'=>$uri]);
+
         //check for dupe text
-        $optionCheck = $options = DB::select('select * from options where game_id LIKE ? AND text LIKE ? AND id NOT LIKE ?', [$request['game_id'],$request['text'],$id]);
+        $optionCheck = $options = DB::select('select * from options where game_id LIKE ? AND uri LIKE ? AND id NOT LIKE ?', [$request['game_id'],$request['uri'],$id]);
         
         if(empty($optionCheck)){
-            
-            //add uri
-            $uri = preg_replace("/[^A-Z-a-z0-9 ]/", '', $request['text']);
-            $uri = str_replace(" ","-",$uri);
-            $request->replace(['uri'=>$uri]);
 
             //update option
             $option = Option::findOrFail($id);
@@ -113,7 +113,7 @@ class OptionController extends Controller
         }else{
             $error=[
                 'error'=>"400 Bad Request",
-                'error_message'=>"There's another option for this game with the same name. Please change and try again."
+                'error_message'=>"There's another option for this game with a similar name. Please change and try again."
             ];
 
             return response()->json($error, 400);
