@@ -94,11 +94,19 @@ class OptionController extends Controller
         
     }
 
-    public function update($id, Request $request)
-    {   Log::info($request);
-        Log::info($id);
+    public function update($id, Request $request){
+
+        //check for dupe text
         $optionCheck = $options = DB::select('select * from options where game_id LIKE ? AND text LIKE ? AND id NOT LIKE ?', [$request['game_id'],$request['text'],$id]);
+        
         if(empty($optionCheck)){
+            
+            //add uri
+            $uri = preg_replace("/[^A-Z-a-z0-9 ]/", '', $request['text']);
+            $uri = str_replace(" ","-",$uri);
+            $request->replace(['uri'=>$uri]);
+
+            //update option
             $option = Option::findOrFail($id);
             $option->update($request->all());
             return response()->json($option, 200);
