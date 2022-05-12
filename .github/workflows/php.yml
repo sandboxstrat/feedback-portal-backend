@@ -2,12 +2,12 @@ name: PHP Composer
 
 on:
   push:
-    branches: [ main ]
+    branches: [ development ]
 
 jobs:
   build:
 
-    runs-on: production
+    runs-on: development
 
     steps:
     - uses: actions/checkout@v2
@@ -28,24 +28,24 @@ jobs:
       run: composer install --prefer-dist --no-progress
     - run: |
         touch .env
-        echo DB_CONNECTION = ${{ secrets.DB_CONNECTION_PRODUCTION }} >> .env
-        echo DB_HOST = ${{ secrets.DB_HOST_PRODUCTION }} >> .env
-        echo DB_PORT = ${{ secrets.DB_PORT_PRODUCTION }} >> .env
-        echo DB_DATABASE = ${{ secrets.DB_DATABASE_PRODUCTION }} >> .env
-        echo DB_USERNAME = ${{ secrets.DB_USERNAME_PRODUCTION }} >> .env
-        echo DB_PASSWORD = ${{ secrets.DB_PASSWORD_PRODUCTION }} >> .env
-        echo AUTH0_DOMAIN = ${{ secrets.AUTH0_DOMAIN_PRODUCTION }} >> .env
-        echo AUTH0_AUD = ${{ secrets.AUTH0_AUD_PRODUCTION }} >> .env
-        echo PUBLIC_FOLDER = ${{ secrets.PUBLIC_FOLDER_PRODUCTION }} >> .env
-        echo CORS_ALLOWED_ORIGINS = ${{ secrets.CORS_ALLOWED_ORIGINS_PRODUCTION }} >> .env
-        echo SABER_PROS_CLIENT_ID = ${{ secrets.SABER_PROS_CLIENT_ID_PRODUCTION }} >> .env
-        echo SABER_PROS_CLIENT_SECRET = ${{ secrets.SABER_PROS_CLIENT_SECRET_PRODUCTION }} >> .env
-        echo SABER_PROS_TOKEN_ENDPOINT = ${{ secrets.SABER_PROS_TOKEN_ENDPOINT_PRODUCTION }} >> .env
-        echo SABER_PROS_REDIRECT_URI = ${{ secrets.SABER_PROS_REDIRECT_URI_PRODUCTION }} >> .env
-        echo SABER_PROS_USERINFO_ENDPOINT = ${{ secrets.SABER_PROS_USERINFO_ENDPOINT_PRODUCTION }} >> .env
+        echo DB_CONNECTION = ${{ secrets.DB_CONNECTION }} >> .env
+        echo DB_HOST = ${{ secrets.DB_HOST }} >> .env
+        echo DB_PORT = ${{ secrets.DB_PORT }} >> .env
+        echo DB_DATABASE = ${{ secrets.DB_DATABASE }} >> .env
+        echo DB_USERNAME = ${{ secrets.DB_USERNAME }} >> .env
+        echo DB_PASSWORD = ${{ secrets.DB_PASSWORD }} >> .env
+        echo AUTH0_DOMAIN = ${{ secrets.AUTH0_DOMAIN }} >> .env
+        echo AUTH0_AUD = ${{ secrets.AUTH0_AUD }} >> .env
+        echo PUBLIC_FOLDER = ${{ secrets.PUBLIC_FOLDER }} >> .env
+        echo CORS_ALLOWED_ORIGINS = ${{ secrets.CORS_ALLOWED_ORIGINS }} >> .env
+        echo SABER_PROS_CLIENT_ID = ${{ secrets.SABER_PROS_CLIENT_ID }} >> .env
+        echo SABER_PROS_CLIENT_SECRET = ${{ secrets.SABER_PROS_CLIENT_SECRET }} >> .env
+        echo SABER_PROS_TOKEN_ENDPOINT = ${{ secrets.SABER_PROS_TOKEN_ENDPOINT }} >> .env
+        echo SABER_PROS_REDIRECT_URI = ${{ secrets.SABER_PROS_REDIRECT_URI }} >> .env
+        echo SABER_PROS_USERINFO_ENDPOINT = ${{ secrets.SABER_PROS_USERINFO_ENDPOINT }} >> .env
         cat .env
     - run: php artisan migrate --force
-    - run: rsync -a /actions-runner/backend/saber-feedback-portal-backend/saber-feedback-portal-backend/saber-feedback-portal-backend/ /var/www/backend/
+    - run: rsync -a /root/actions-runner/backend/backend/saber-feedback-portal-backend/saber-feedback-portal-backend/ /var/www/backend/
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
