@@ -65,6 +65,8 @@ $router->group(['prefix' => 'admin','middleware' => 'auth'], function () use ($r
 
     $router->get('feedback', ['uses' => 'FeedbackController@getAllFeedback']);
 
+    $router->post('feedback/export', ['uses' => 'FeedbackController@createCsv']);
+
     $router->get('feedback/{id}', ['uses' => 'FeedbackController@getFeedbackById']);
 
     $router->get('feedback/game/{gameId}', ['uses' => 'FeedbackController@getFeedbackByGame']);
