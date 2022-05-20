@@ -49,8 +49,9 @@ class FeedbackController extends Controller
 
     public function getFeedbackByGame($gameId){
         return response()->json(Feedback::
-            select('feedback.*',DB::raw('CONCAT(DATE_FORMAT(DATE(created_at), "%M %d, %Y")," ",TIME_FORMAT(TIME(created_at), "%H:%i:%s")) as datetime'))
+            select('feedback.*',DB::raw('CONCAT(DATE_FORMAT(DATE(created_at), "%m/%d/%Y")," ",TIME_FORMAT(TIME(created_at), "%H:%i:%s")) as datetime'))
             ->where('game_id','=',$gameId)
+            ->orderBy('datetime', 'desc')
             ->get());
     }
 
@@ -102,14 +103,60 @@ class FeedbackController extends Controller
     public function update($id, Request $request)
     {
         $feedback = Feedback::findOrFail($id);
-        $feedback->update($request->all());
+        $feedback -> update($request->all());
 
-        return response()->json($feedback, 200);
+        //Pulls updated data with properly formatted datetime
+        $feedbackResponse = Feedback::
+        select('feedback.*',DB::raw('CONCAT(DATE_FORMAT(DATE(created_at), "%m/%d/%Y")," ",TIME_FORMAT(TIME(created_at), "%H:%i:%s")) as datetime'))
+        ->where('id','=',$id)
+        ->limit(1)
+        ->get();
+
+        return response()->json($feedbackResponse[0], 200);
     }
 
     public function delete($id)
     {
         Game::findOrFail($id)->delete();
         return response('Deleted Successfully', 200);
+    }
+
+    public function createCsv(Request $request, $filename="export.csv"){
+        
+        
+
+        $data = json_decode($request->getContent(),true);
+
+        // output headers so that the file is downloaded rather than displayed
+        $headers = [
+            'Content-Type' => 'text/csv; charset=utf-8',
+            'Content-Disposition' => "attachment; filename=$filename",
+        ];
+        
+        //callback function to generate csv
+        $callback = function() use ($data){
+
+            // create a file pointer connected to the output stream
+            $output = fopen('php://output', 'w');
+
+            //Adds Byte Order Mark
+            fwrite($output, "\xEF\xBB\xBF");
+
+            if(!empty($data['header'])){
+                fputcsv($output, $data['header']);
+            }
+
+            // loop over the rows, outputting them
+            foreach($data['data'] as $row){
+                if(is_string($row)){
+                    $row=[$row];
+                }
+                fputcsv($output, $row);
+            }
+
+            fclose($output);
+        };
+        
+        return response()->stream($callback, 200, $headers);
     }
 }
