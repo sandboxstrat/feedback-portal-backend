@@ -17,6 +17,7 @@ class FeedbackController extends Controller
     }
 
     public function getLatestFeedback(){
+        
         $query = DB::select(
             'SELECT 
                 feedback.*,
@@ -25,8 +26,10 @@ class FeedbackController extends Controller
                 CONCAT(DATE_FORMAT(DATE(feedback.created_at), "%M %d, %Y")," ",TIME_FORMAT(TIME(feedback.created_at), "%H:%i:%s")) as datetime
             FROM feedback
             LEFT JOIN games ON feedback.game_id=games.id
+            WHERE feedback.created_at BETWEEN (NOW() - INTERVAL 30 DAY) AND NOW()
             ORDER BY created_at DESC;'
         );
+        $response = response()->json($query);
         return response()->json($query);
     }
 
@@ -36,7 +39,9 @@ class FeedbackController extends Controller
                 DATE_FORMAT(DATE(created_at), "%m/%d/%Y") as date,
                 COUNT(id) as count
             FROM feedback
+            WHERE created_at BETWEEN (NOW() - INTERVAL 30 DAY) AND NOW()
             GROUP BY date
+            
             ORDER BY date ASC;'
         );
         return response()->json($query);
