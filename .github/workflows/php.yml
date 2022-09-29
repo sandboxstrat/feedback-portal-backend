@@ -2,7 +2,7 @@ name: PHP Composer
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main-bluehost ]
 
 jobs:
   build:
@@ -45,7 +45,12 @@ jobs:
         echo SABER_PROS_USERINFO_ENDPOINT = ${{ secrets.SABER_PROS_USERINFO_ENDPOINT_PRODUCTION }} >> .env
         cat .env
     - run: php artisan migrate --force
-    - run: rsync -a /actions-runner/backend/saber-feedback-portal-backend/saber-feedback-portal-backend/saber-feedback-portal-backend/ /var/www/backend/
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.3.2
+      with:
+        server: ${{ secrets.SABER_FTP }}
+        username: ${{ secrets.SABER_FTP_BACKEND_USER }}
+        password: ${{ secrets.SABER_FTP_BACKEND_PASSWORD }}
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
