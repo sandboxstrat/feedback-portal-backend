@@ -15,7 +15,7 @@ class ProsState extends Model
      */
     
     protected $fillable = [
-        'game_id', 'option', 'key', 'feedback', 'link'
+        'game_id', 'option', 'key'
     ];
 
     protected $table = 'pros_state';

@@ -20,8 +20,6 @@ $router->get('/', function () use ($router) {
 /*Routes required for Game Page*/
 $router->group(['prefix' => 'api'], function () use ($router) {
 
-    $router->get('games', ['uses' => 'GameController@getAllPublicGames']);
-
     $router->get('games/{url}', ['uses' => 'GameController@getOneGameByUrlAndPublic']);
 
     $router->post('feedback',['uses' => 'FeedbackController@create']);

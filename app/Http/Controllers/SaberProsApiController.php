@@ -159,12 +159,7 @@ class SaberProsApiController extends Controller
 
             $game = json_decode(Game::find($loginState['game_id']),true);
 
-            $response = [
-                'game_page'=>$game['url'],
-                'option'=>$loginState['option'],
-                'feedback'=>$loginState['feedback'],
-                'link'=>$loginState['link'],
-            ];
+            $response = ['game_page'=>$game['url'],'option'=>$loginState['option']];
             return response()->json($response,200);
 
         }else{
@@ -174,8 +169,6 @@ class SaberProsApiController extends Controller
 
     public function createLoginState(Request $request)
     {
-        Log::error($request);
-
         $cookie = ProsState::create($request->all());
 
         return response()->json($cookie, 201);
