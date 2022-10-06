@@ -23,6 +23,19 @@ class GameController extends Controller
         return response()->json($query);
     }
 
+    public function getAllPublicGames()
+    {
+        $query = DB::select(
+            'SELECT 
+                games.*
+            FROM games
+            WHERE
+                `feedback_page`=1
+            ORDER BY name ASC'
+        );
+        return response()->json($query);
+    }
+
     public function getOneGame($id)
     {
         return response()->json(Game::find($id));
