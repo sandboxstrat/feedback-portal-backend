@@ -54,7 +54,7 @@ class FeedbackController extends Controller
 
     public function getFeedbackByGame($gameId){
         return response()->json(Feedback::
-            select('feedback.*',DB::raw('CONCAT(DATE_FORMAT(DATE(created_at), "%m/%d/%Y")," ",TIME_FORMAT(TIME(created_at), "%H:%i:%s")) as datetime'))
+            select('feedback.*',DB::raw('CONCAT(DATE_FORMAT(DATE(created_at), "%Y/%m/%d")," ",TIME_FORMAT(TIME(created_at), "%H:%i:%s")) as datetime'))
             ->where('game_id','=',$gameId)
             ->orderBy('datetime', 'desc')
             ->get());
